@@ -3,13 +3,14 @@
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
 import React, { useState } from 'react';
-//create your first component
-const Home = () => {const [tareas, setTareas] = useState([]);
+
+const Home = () => {
+  const [tareas, setTareas] = useState([]);
   const [input, setInput] = useState('');
   const [hoverIndex, setHoverIndex] = useState(null);
 
-  const agregarTarea = (e) => {
-    if (e.key === 'Enter' && input.trim() !== '') {
+  const handleAgregarTarea = () => {
+    if (input.trim() !== '') {
       setTareas([...tareas, input.trim()]);
       setInput('');
     }
@@ -25,14 +26,20 @@ const Home = () => {const [tareas, setTareas] = useState([]);
       <div className="row justify-content-center mt-5">
         <div className="col-12 col-md-8 col-lg-6">
           <h2 className="text-center mb-4">📝 Lista de Tareas</h2>
-          <input
-            type="text"
-            className="form-control mb-3"
-            placeholder="Escribe una tarea y presiona Enter"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={agregarTarea}
-          />
+
+          <div className="input-group mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Escribe una tarea"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+            <button className="btn btn-primary" onClick={handleAgregarTarea}>
+              Agregar Tarea
+            </button>
+          </div>
+
           <ul className="list-group">
             {tareas.length === 0 ? (
               <li className="list-group-item text-muted text-center fst-italic">
@@ -63,6 +70,6 @@ const Home = () => {const [tareas, setTareas] = useState([]);
       </div>
     </div>
   );
-}
+};
 
 export default Home;
